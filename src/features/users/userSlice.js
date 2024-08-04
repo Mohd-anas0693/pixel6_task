@@ -5,8 +5,7 @@ const initialState = {
     userPerPage: 10,
     sortBy: "",
     sortOrder: "asc",
-    genderFilter: null,
-    countryFilter: null,
+    filteredUser: [],
 }
 
 
@@ -14,18 +13,32 @@ const userSlice = createSlice({
     name: "users",
     initialState,
     reducers: {
-        setGenderFilter: (state, action) => {
-            state.genderFilter = action.payload
-            console.log("slice ", state.genderFilter);
-        },
-        setCountryFilter: (state, action) => {
-            state.countryFilter = action.payload;
-        },
-        filterUser: (state, action) => {
-            state.users = [...action.payload]
-        },
+
         fetchAllUsers: (state, action) => {
             state.users = [...state.users, ...action.payload]
+        },
+        filterUser: (state, action) => {
+            const userData = state.users;
+            console.log(action.payload)
+            const { gender, country } = action.payload;
+        
+            if (userData.length > 0) {
+                if (gender && country) {
+                    state.filteredUser =  userData.filter((user) => (user.gender === gender && user.address.country === country));
+                    return;
+                };
+                if (gender) {
+                    state.filteredUser = userData.filter((user) => (user.gender === gender));
+                    return;
+                };
+                if (country) {
+                    state.filteredUser =  userData.filter((user) => (user.address.country === country));
+                    return;
+                }
+                else {
+                    state.filteredUser = [];
+                }
+            }
         },
         setSortBy: (state, action) => {
             state.sortBy = action.payload;
@@ -42,7 +55,6 @@ const userSlice = createSlice({
                 }
             });
         },
-
     }
 });
 export const { fetchAllUsers, sortBy, setSortOrder, sortUsers, filterUser, setGenderFilter, setCountryFilter } = userSlice.actions;
