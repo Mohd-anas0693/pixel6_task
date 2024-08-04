@@ -19,7 +19,9 @@ To get started with the project, follow these steps:
 
 3. Run locally:
 
-    -npm run dev
+    ```bash 
+        npm run dev
+    ```
 
 ## Deployed Link
 
