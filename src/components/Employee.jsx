@@ -43,7 +43,7 @@ function Employee() {
   useEffect(() => {
     // Filter users based on selected gender and country
     dispatch(filterUser({ gender: genderFilter?.value, country: countryFilter?.value }))
-  }, [countryFilter, genderFilter])
+  }, [dispatch, countryFilter, genderFilter])
 
   return (
     <div class="flex flex-col items-center h-screen">
@@ -79,7 +79,7 @@ function Employee() {
         dataLength={users.length} 
         next={() => {
           fetchUser();
-          dispatch(filterUser({ gender: genderFilter, country: countryFilter }))
+          dispatch(filterUser({ gender: genderFilter?.value, country: countryFilter?.value}))
         }}
         hasMore={true}
         loader={<h4>    </h4>}

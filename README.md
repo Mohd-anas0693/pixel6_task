@@ -24,4 +24,4 @@ To get started with the project, follow these steps:
 ## Deployed Link
 
 Use Here:-
-   -
+   - Deployed link : https://mohd-anas0693.github.io/pixel6_task/
