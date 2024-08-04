@@ -7,10 +7,9 @@ import Select from "react-select";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FaFilter } from 'react-icons/fa';
 
-import { fetchAllUserApi } from "../../Api/user.api";
-import { fetchAllUsers, filterUser } from "../../features/users/userSlice";
-import User from "../User/User";
-import "./Employee.css"
+import { fetchAllUserApi } from "../Api/user.api";
+import { fetchAllUsers, filterUser } from "../features/users/userSlice";
+import User from "./User";
 
 
 function Employee() {
@@ -24,8 +23,7 @@ function Employee() {
 
   const dispatch = useDispatch();
 
-
-
+  // Fetch users from API
   const fetchUser = async () => {
     try {
       const response = await fetchAllUserApi(userPerPage, users.length);
@@ -37,11 +35,13 @@ function Employee() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchUser()
   }, [])
 
   useEffect(() => {
+    // Filter users based on selected gender and country
     dispatch(filterUser({ gender: genderFilter?.value, country: countryFilter?.value }))
   }, [countryFilter, genderFilter])
 
@@ -51,7 +51,7 @@ function Employee() {
         <h1 class="mb-4 font-bold text-4xl">Employee</h1>
 
         <div class="mb-4 flex space-x-2">
-          <FaFilter className="text-4xl text-red-500 w-6 h-6 my-2" />
+          <FaFilter className="text-4xl text-red-600 w-6 h-6 my-2" />
           <Select
             isClearable={true}
             value={genderFilter}
@@ -74,15 +74,15 @@ function Employee() {
           />
         </div>
       </div>
-
+      
       <InfiniteScroll className="max-h-50"
-        dataLength={users.length} // This is important field to render the next data
+        dataLength={users.length} 
         next={() => {
           fetchUser();
           dispatch(filterUser({ gender: genderFilter, country: countryFilter }))
         }}
         hasMore={true}
-        loader={<h4>Loading...</h4>}
+        loader={<h4>    </h4>}
         endMessage={
           <p style={{ textAlign: 'center' }}>
             <b>Yay! You have seen it all</b>

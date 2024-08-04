@@ -1,3 +1,3 @@
-import Employee from "./Employee/Employee";
-import Header from "./Header/Header";
+import Employee from "./Employee";
+import Header from "./Header";
 export { Employee, Header }; 
